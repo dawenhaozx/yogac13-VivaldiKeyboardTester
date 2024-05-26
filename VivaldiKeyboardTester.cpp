@@ -36,7 +36,7 @@ const UINT8 fnKeys_set1[] = {
     0x3B, 0x3C, 0x3D, 0x3E, 0x3F, 0x40, 0x41, 0x42, 0x43, 0x44, 0x57, 0x58,
 
     //F13 - F16
-    0x64, 0x64, 0x66, 0x67
+    0x64, 0x65, 0x66, 0x67
 };
 
 void ReceiveKeys_Guarded(PKEYBOARD_INPUT_DATA startPtr, PKEYBOARD_INPUT_DATA endPtr, PULONG InputDataConsumed);
@@ -409,15 +409,21 @@ VivaldiTester::VivaldiTester() {
     remapCfgs->cfg[13].originalKey.Flags = KEY_E0;
     remapCfgs->cfg[13].remapVivaldiToFnKeys = TRUE;
 
-    remapCfgs->cfg[14].LeftCtrl = RemapCfgKeyStateEnforceNot;
+    remapCfgs->cfg[14].LeftCtrl = RemapCfgKeyStateEnforce;
+    remapCfgs->cfg[14].LeftShift = RemapCfgKeyStateEnforceNot;
     remapCfgs->cfg[14].originalKey.MakeCode = VIVALDI_VOLDN;
     remapCfgs->cfg[14].originalKey.Flags = KEY_E0;
-    remapCfgs->cfg[14].remapVivaldiToFnKeys = TRUE;
+    remapCfgs->cfg[14].remappedKey.MakeCode = fnKeys_set1[8];
+    remapCfgs->cfg[14].additionalKeys[0].MakeCode = K_LCTRL;
+    remapCfgs->cfg[14].additionalKeys[0].Flags = KEY_BREAK;
 
-    remapCfgs->cfg[15].LeftCtrl = RemapCfgKeyStateEnforceNot;
+    remapCfgs->cfg[15].LeftCtrl = RemapCfgKeyStateEnforce;
+    remapCfgs->cfg[15].LeftShift = RemapCfgKeyStateEnforceNot;
     remapCfgs->cfg[15].originalKey.MakeCode = VIVALDI_VOLUP;
     remapCfgs->cfg[15].originalKey.Flags = KEY_E0;
-    remapCfgs->cfg[15].remapVivaldiToFnKeys = TRUE;
+    remapCfgs->cfg[15].remappedKey.MakeCode = fnKeys_set1[9];
+    remapCfgs->cfg[15].additionalKeys[0].MakeCode = K_LCTRL;
+    remapCfgs->cfg[15].additionalKeys[0].Flags = KEY_BREAK;
 
     remapCfgs->cfg[16].LeftCtrl = RemapCfgKeyStateEnforceNot;
     remapCfgs->cfg[16].originalKey.MakeCode = VIVALDI_NEXT_TRACK;
@@ -634,19 +640,22 @@ VivaldiTester::VivaldiTester() {
     remapCfgs->cfg[37].additionalKeys[0].MakeCode = K_LCTRL;
     remapCfgs->cfg[37].additionalKeys[0].Flags = KEY_BREAK;
 
-    //Lock -> Windows + L
+    //Map Ctrl + Lock -> F12
 
-    remapCfgs->cfg[38].Search = RemapCfgKeyStateEnforceNot;
+    remapCfgs->cfg[38].LeftCtrl = RemapCfgKeyStateEnforce;
+    remapCfgs->cfg[38].LeftShift = RemapCfgKeyStateEnforceNot;
     remapCfgs->cfg[38].originalKey.MakeCode = K_LOCK;
     remapCfgs->cfg[38].originalKey.Flags = 0;
-    remapCfgs->cfg[38].remappedKey.MakeCode = 0x26;
-    remapCfgs->cfg[38].additionalKeys[0].MakeCode = K_LWIN;
-    remapCfgs->cfg[38].additionalKeys[0].Flags = KEY_E0;
+    remapCfgs->cfg[38].remappedKey.MakeCode = fnKeys_set1[11];
+    remapCfgs->cfg[38].additionalKeys[0].MakeCode = K_LCTRL;
+    remapCfgs->cfg[38].additionalKeys[0].Flags = KEY_BREAK;
 
-    remapCfgs->cfg[39].Search = RemapCfgKeyStateEnforce;
+    remapCfgs->cfg[39].Search = RemapCfgKeyStateEnforceNot;
     remapCfgs->cfg[39].originalKey.MakeCode = K_LOCK;
     remapCfgs->cfg[39].originalKey.Flags = 0;
     remapCfgs->cfg[39].remappedKey.MakeCode = 0x26;
+    remapCfgs->cfg[39].additionalKeys[0].MakeCode = K_LWIN;
+    remapCfgs->cfg[39].additionalKeys[0].Flags = KEY_E0;
 
     filterExt->remapCfgs = remapCfgs;
 
